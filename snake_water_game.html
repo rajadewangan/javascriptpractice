@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			button[type="submit"] {
+				width: 30vw;
+			}
+			body {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			select {
+				width: 30vw;
+				margin-bottom: 3vw;
+			}
+		</style>
+	</head>
+	<body>
+		<p>Choose Snake "S" , water "W" , Gun "G"</p>
+		<select>
+			<option value="S">Snake</option>
+			<option value="W">Water</option>
+			<option value="G">Gun</option>
+		</select>
+		<button type="submit" onclick="game()">Lets Play</button>
+		<p id="result"></p>
+	</body>
+	<script>
+		let name = prompt("Enter your name");
+		function game() {
+			let user = document.querySelector("select").value;
+			let cpu1 = Math.floor(Math.random() * 3);
+			let cpu = ["S", "W", "G"][cpu1];
+			const match = (cpu, user) => {
+				if (cpu == user) {
+					return "Nobody win";
+				} else if (cpu === "S" && user === "W") {
+					return name;
+				} else if (cpu === "G" && user === "W") {
+					return "cpu";
+				} else if (cpu === "S" && user === "G") {
+					return name;
+				} else if (cpu === "W" && user === "S") {
+					return name;
+				} else if (cpu === "W" && user === "G") {
+					return name;
+				} else if (cpu === "G" && user === "S") {
+					return "cpu";
+				}
+			};
+			let result = match(cpu, user);
+			document.getElementById("result").innerHTML = "The winner is : " + result;
+		}
+	</script>
+</html>

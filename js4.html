@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			section,
+			div {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: WRAP;
+			}
+			section h1 {
+				margin-right: 3vw;
+			}
+
+			div {
+				margin: 10px;
+				flex-direction: column;
+			}
+			div button {
+				width: fit-content;
+				height: 3vw;
+				cursor: pointer;
+			}
+			div p {
+				font-size: 6rem;
+				margin: 3px;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<h1>Enter a number</h1>
+			<input type="number" id="input" />
+		</section>
+		<div>
+			<button id="btn" onclick="sqrtnumber()">CHECK</button>
+			<p id="result"></p>
+		</div>
+	</body>
+	<script>
+		let num, num_sqrt;
+		num = document.getElementById("input").value;
+		function sqrtnumber() {
+			num = document.getElementById("input").value;
+			document.getElementById("btn").innerHTML =
+				"the square root of the " + num + " is :";
+			document.getElementById("result").innerHTML = Math.sqrt(num);
+		}
+	</script>
+</html>

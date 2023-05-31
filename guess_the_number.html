@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			body,
+			section,
+			div {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			input {
+				width: 80vw;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<div>
+				<span>Guess the number </span> <span><input type="number" /></span>
+				<p id="result"></p>
+				<button onclick="guessthenumber()">Submit</button>
+			</div>
+		</section>
+	</body>
+	<script>
+		const randomNum = Math.floor(Math.random() * 100) + 1;
+		//console.log(randomNum); // prints a random number between 1 and 100
+
+		let chances = 0;
+
+		function guessthenumber() {
+			let number = document.querySelector("input").value;
+			if (randomNum < number) {
+				document.getElementById("result").innerHTML = "your number is greater ";
+				chances++;
+			} else if (number < randomNum) {
+				document.getElementById("result").innerHTML =
+					"your number is less than my number";
+				chances++;
+			} else {
+				chances++;
+				document.getElementById("result").innerHTML =
+					"you  got number in " + chances + " chances";
+			}
+		}
+	</script>
+</html>

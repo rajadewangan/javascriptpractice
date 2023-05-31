@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			#user-input {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#user-input p {
+				margin: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="user-input">
+			<p>Type word</p>
+			<input type="text" />
+			<p>How many times</p>
+			<input type="number" />
+		</div>
+		<button onclick="showoutput()">Submit</button>
+		<p id="showresult"></p>
+	</body>
+	<script>
+		function showoutput() {
+			let word = document.querySelector('#user-input input[type="text"]').value;
+			let times = Number(
+				document.querySelector('#user-input input[type="number"]').value
+			);
+			let result = "";
+			for (let i = 0; i < times; i++) {
+				result += word + "<br>";
+			}
+			document.getElementById("showresult").innerHTML = result;
+		}
+	</script>
+</html>

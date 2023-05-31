@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<button onclick="alert('give me one plate of chawmin')"></button>
+		<h1>bookmarks</h1>
+		<a href="http://google.com"><button id="google">google</button></a>
+		<a href="http://fb.com"><button id="facebook">Facebook</button></a>
+		<a href="http://twitter.com"><button id="twitter">twitter</button></a>
+	</body>
+	<script>
+		document.getElementById("google").addEventListener("click", function () {
+			var url = "https://www.google.com/search?q=javascript";
+			var win = window.open(
+				url,
+				"",
+				"width = 500,height=500,scrollbars=yes,resizable=yes"
+			);
+			win.focus();
+		});
+		document.getElementById("facebook").addEventListener("click", function () {
+			var url = "https://www.google.com";
+			window.location = "https://www.google.com";
+
+			win.focus();
+		});
+		const fetchContent = async (url) => {
+			con = await fetch(url);
+			let a = await con.json();
+			return a;
+		};
+		setInterval(async function () {
+			let url = "https://jsonplaceholder.typicode.com/todos/1";
+		});
+	</script>
+</html>

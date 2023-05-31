@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body></body>
+	<script>
+		var runAgain = true;
+		while (runAgain) {
+			let age = prompt("Enter your age");
+			age = Number.parseInt(age);
+			const canDrv = (age) => {
+				return age >= 18 ? true : false;
+			};
+			if (canDrv(age)) {
+				alert("Yes you can drive");
+				location.href = "js18.html";
+			} else {
+				alert("you can't drive");
+			}
+			runAgain = confirm("Do you want to continue");
+		}
+	</script>
+</html>

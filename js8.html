@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<h1>this is js8 !</h1>
+		<button onclick="myFunction()">Please try for prompt message</button>
+		<p id="result"></p>
+	</body>
+	<script>
+		function myFunction() {
+			let test;
+			let user = prompt("please enter your name :", "your first name");
+			if (user == null || user == "") {
+				test = "user cancelled the prompt";
+			} else {
+				test = "hello " + user + " Good Morning !";
+			}
+			document.getElementById("result").innerHTML = test;
+		}
+	</script>
+</html>

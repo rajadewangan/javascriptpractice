@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			button {
+				margin: 20px auto;
+				display: block;
+				height: 30vh;
+				width: 70vw;
+				background-color: #5aff85c4;
+				font-size: 2rem;
+				cursor: pointer;
+			}
+			#result {
+				font-size: 9rem;
+				margin: auto;
+				color: #e00000;
+				display: block;
+				justify-content: center;
+				text-align: center;
+				text-shadow: 4px 3px 5px black;
+				animation: result 3s;
+			}
+			@keyframes result {
+				from {
+					width: 0%;
+				}
+				to {
+					width: 100%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<button onclick="myfunc()">Click here to know your soulmate name</button>
+
+		<p id="result"></p>
+	</body>
+	<script>
+		var button = document.querySelector("button");
+		function myfunc() {
+			document.getElementById("result").innerHTML = "Padhle yrr !!!";
+			button.style.display = "none";
+		}
+	</script>
+</html>
