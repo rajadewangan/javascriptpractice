@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #cararea {
+            height: 9rem;
+            width: 3.3rem;
+            background-image: url(car.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            transform: rotate(180deg);
+            position: absolute;
+      
+        }
+    </style>
+    <script>
+        function carmove(ev) {
+            var car = document.getElementById("cararea");
+            var x = parseInt(car.style.left);
+            var y = parseInt(car.style.top);
+
+            if (ev.key === "ArrowLeft") {
+                x -= 5;
+                car.style.left = x + "px";
+            } else if (ev.key === "ArrowRight") {
+                x += 5;
+                car.style.left = x + "px";
+            } else if (ev.key === "ArrowUp") {
+                y -= 5;
+                car.style.top = y + "px";
+            } else if (ev.key === "ArrowDown") {
+                y += 5;
+                car.style.top = y + "px";
+            }
+        }
+    </script>
+</head>
+<body onkeydown="carmove(event)">
+    <div id="cararea" style="left: 450px; top: 300px;"></div><!--end of cararea-->
+</body>
+</html>

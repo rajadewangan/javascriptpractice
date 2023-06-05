@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Game</title>
+    <style>
+        /* Styling for the game container */
+        #game-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background-image: url('background.png'); /* Change the URL to your desired background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        /* Styling for the player's car */
+        #player-car {
+            position: absolute;
+            width: 100px;
+            height: 279px;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-image: url('mycar.png'); /* Change the URL to your desired player car image */
+            background-size: cover;
+        }
+        
+        /* Styling for the enemy cars */
+        .enemy-car {
+            position: absolute;
+            width: 100px;
+            height: 200px;
+            background-image: url('enemycar1.png'); /* Change the URL to your desired enemy car image */
+            background-size: cover;
+        }
+        
+        /* Styling for the score board */
+        #score-board {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        /* Responsive CSS */
+        @media screen and (max-width: 768px) {
+            #player-car {
+                width: 80px;
+                height: 160px;
+            }
+            
+            .enemy-car {
+                width: 80px;
+                height: 160px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            #player-car {
+                width: 60px;
+                height: 120px;
+            }
+            
+            .enemy-car {
+                width: 60px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="player-car"></div>
+    </div>
+    
+    <div id="score-board">
+        <h3>All-time Scores</h3>
+        <ul id="score-list"></ul>
+    </div>
+    
+    <script>
+   // JavaScript code
+document.addEventListener("DOMContentLoaded", function() {
+  // Game variables
+  var playerCar = document.getElementById("player-car");
+  var gameContainer = document.getElementById("game-container");
+  var playerCarWidth = playerCar.offsetWidth;
+  var playerCarHeight = playerCar.offsetHeight;
+  var playerCarLeft = (gameContainer.offsetWidth - playerCarWidth) / 2; // Center the player's car horizontally
+  var score = 0;
+
+  // Set initial position of the player's car
+  playerCar.style.left = playerCarLeft + "px";
+
+  // Move the player's car
+  function moveCar(direction) {
+    if (direction === "left" && playerCarLeft > 0) {
+      playerCarLeft -= 25;
+    } else if (direction === "right" && playerCarLeft < gameContainer.offsetWidth - playerCarWidth) {
+      playerCarLeft += 25;
+    }
+
+    playerCar.style.left = playerCarLeft + "px";
+  }
+
+  // Create enemy cars
+  function createEnemyCar() {
+    var enemyCar = document.createElement("div");
+    enemyCar.classList.add("enemy-car");
+    enemyCar.style.left = Math.floor(Math.random() * (gameContainer.offsetWidth - playerCarWidth)) + "px";
+    gameContainer.appendChild(enemyCar);
+
+    // Animate enemy car
+    var interval = setInterval(function() {
+      var enemyCarTop = enemyCar.offsetTop;
+      enemyCar.style.top = (enemyCarTop + 5) + "px";
+
+      // Check collision with player's car
+      if (isCollision(playerCar, enemyCar)) {
+        clearInterval(interval);
+        gameOver();
+      }
+
+      // Increase score if enemy car reaches the bottom
+      if (enemyCarTop > gameContainer.offsetHeight) {
+        clearInterval(interval);
+        gameContainer.removeChild(enemyCar);
+        score++;
+        updateScoreBoard();
+      }
+    }, 20);
+  }
+
+  // Check collision between two elements
+  function isCollision(element1, element2) {
+    var element1Rect = element1.getBoundingClientRect();
+    var element2Rect = element2.getBoundingClientRect();
+
+    return !(
+      element1Rect.top > element2Rect.bottom ||
+      element1Rect.bottom < element2Rect.top ||
+      element1Rect.right < element2Rect.left ||
+      element1Rect.left > element2Rect.right
+    );
+  }
+
+  // Update the score board
+  function updateScoreBoard() {
+    var scoreList = document.getElementById("score-list");
+    var scores = getScores();
+
+    scoreList.innerHTML = "";
+
+    scores.forEach(function(score) {
+      var listItem = document.createElement("li");
+      listItem.textContent = score;
+      scoreList.appendChild(listItem);
+    });
+  }
+
+  // Get scores from local storage
+  function getScores() {
+    var scores = localStorage.getItem("scores");
+
+    if (scores) {
+      return JSON.parse(scores);
+    } else {
+      return [];
+    }
+  }
+
+  // Save score to local storage
+  function saveScore(score) {
+    var scores = getScores();
+    scores.push(score);
+
+    localStorage.setItem("scores", JSON.stringify(scores));
+  }
+
+  // Game over
+  function gameOver() {
+    saveScore(score);
+    alert("Game Over!\nYour score: " + score);
+    location.reload(); // Reload the page to restart the game
+  }
+
+  // Start the game
+  function startGame() {
+    updateScoreBoard();
+
+    document.addEventListener("keydown", function(event) {
+      if (event.code === "ArrowLeft") {
+        moveCar("left");
+      } else if (event.code === "ArrowRight") {
+        moveCar("right");
+      }
+    });
+
+    setInterval(createEnemyCar, 1000); // Create enemy cars every second
+  }
+
+  startGame();
+});
+
+    </script>
+</body>
+</html>
