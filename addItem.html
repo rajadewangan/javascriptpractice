@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #itemarea{
+          
+        }
+        #itemarea div{
+            width: 95vw;
+            /* height: 4rem; */
+        }
+
+        #itemdisplayarea{
+            /* height: fit-content; */
+        }
+        .vertical-center{
+            display: flex;
+            align-items: center;
+        }
+        table{
+            width: 95vw;
+        }
+        table th,table td{
+               width: 16.66%;
+               align-items: center;
+               border: 1px solid black;
+        }
+        table td{
+   
+        }
+        #itemselectarea p {
+         margin: 0;
+          }
+
+
+    </style>
+    <script>
+        function addItem() {
+          let itemName = document.getElementsByName("chkItemName")[0].value;
+          let itemPrice = document.getElementsByName("numItemPrice")[0].value;
+          let itemQuantity = document.getElementsByName("numItemQuantity")[0].value;
+      
+          let tbody = document.getElementsByTagName("tbody")[0];
+          let newRow = document.createElement('tr');
+          let serialNumber = tbody.rows.length + 1;
+      
+          let td1 = document.createElement('td');
+          td1.textContent = serialNumber;
+          newRow.appendChild(td1);
+      
+          let td2 = document.createElement('td');
+          td2.textContent = itemName;
+          newRow.appendChild(td2);
+      
+          let td3 = document.createElement('td');
+          td3.textContent = itemPrice;
+          newRow.appendChild(td3);
+      
+          let td4 = document.createElement('td');
+          td4.textContent = itemQuantity;
+          newRow.appendChild(td4);
+      
+          let td5 = document.createElement('td');
+          td5.textContent = itemPrice * itemQuantity;
+          newRow.appendChild(td5);
+      
+          let td6 = document.createElement('td');
+          let deleteButton = document.createElement('button');
+          deleteButton.textContent = 'Delete';
+          deleteButton.onclick = function() {
+            deleteRow(this);
+          };
+          td6.appendChild(deleteButton);
+          newRow.appendChild(td6);
+      
+          tbody.appendChild(newRow);
+
+          updateTotal();
+          
+        }
+      
+        function deleteRow(button) {
+          let row = button.parentNode.parentNode;
+          row.remove();
+        }
+
+        function updateTotal()
+        {
+            let table = document.getElementsByTagName("table")[0];
+            let tbody = document.getElementsByTagName("tbody")[0];
+            let grandTotal = document.getElementById("grandTotal");
+            let rows = tbody.rows;
+            let total = 0;
+
+            // Iterate through rows, starting from the second row (index 1)
+            for (let i = 1; i < rows.length ; i++) {
+            let fourthCell = rows[i].cells[4];
+            let fourthCellValue = parseFloat(fourthCell.textContent);
+            total += fourthCellValue;
+            }
+
+                
+            grandTotal.innerHTML="<tr ><td colspan='4' class'w-75' style='width: 1rem;'>Total</td><td colspan='2'>"+total+"</td></tr>";
+        }
+      </script>
+      
+    <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+</head>
+<body>
+    <section id="itemarea" class="row d-flex justify-content-center">
+        <div id="itemselectarea" class="border border-2 border-dark row mt-3 p-4 d-flex justify-content-center align-items-center">
+            <select name="chkItemName" class="w-25 ml-2">
+                <option value="kaju">Kaju</option>
+                <option value="kismis">Kismis</option>
+                <option value="baadam">Baadam</option>
+            </select>
+            <input type="number" name="numItemPrice" class="w-25 ml-2">
+            <input type="number" name="numItemQuantity" class="w-25 ml-2">
+            <button onclick="addItem();" class="w-25 ml-2">Add</button>
+        </div>
+        <div id="itemdisplayarea" class="border border-2 border-dark row mt-3 p-4 d-flex justify-content-center align-items-center">
+            <table>
+                <tr><th>S.No</th><th>Item Name</th> <th>Item Rate</th><th>Item Quantity</th>
+                    <th>Total</th><th>Delete</th></tr>
+                </table>
+                <table id="grandTotal">
+                <tr ><td colspan="4" class'w-75' style="width: 1rem;">Total</td><td colspan="2">00</td></tr>
+            </table>
+        </div>
+    </section>
+    
+</body>
+</html>
